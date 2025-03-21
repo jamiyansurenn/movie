@@ -1,4 +1,4 @@
-
+"use client";
 import React from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GenreType, PageType } from "@/app/utils/type";
