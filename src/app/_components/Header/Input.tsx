@@ -69,14 +69,14 @@ const SearchInput = () => {
                 href={`/catagory/${movie?.id}`}
               >
                 <div className="gradient">
-                  <Image
+                  {/* <Image
                     src={`${ConImg}original/${movie?.poster_path}`}
                     width={67}
                     height={100}
                     alt=""
                     className="rounded-[6px] cursor-pointer"
-                  />
-
+                  /> */}
+                  
                   <div className="flex flex-col items-start gap-4 w-[100%]">
                     <h2 className="font-bold text-[20px]">
                       {movie?.original_title}

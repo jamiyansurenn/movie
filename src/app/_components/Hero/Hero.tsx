@@ -46,13 +46,17 @@ export function CarouselPlugin() {
         {movies.slice(0, 10).map((movie: MovieTypes, index) => (
           <CarouselItem key={index} className="w-full h-full relative">
             {/* Зураг */}
-            <Image
+            {/* <Image
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
               alt={movie.title}
               width={1280}
               height={600}
               className="w-full h-full object-cover"
               priority
+            /> */}
+            <img
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
             />
             {/* Текст (Зураг бүр дээр харагдана) */}
             <div className="absolute left-[170px] bottom-[220px] w-[350px] h-[250px] flex flex-col items-start ">

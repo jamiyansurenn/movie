@@ -3,6 +3,7 @@ import { Footer } from "./_components/Footer";
 import { Header } from "./_components/Header/Header";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 
 
@@ -25,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
         <Footer />
       </body>

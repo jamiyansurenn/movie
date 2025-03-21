@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { MovieTypes } from "../../utils/type";
 import Image from "next/image";
@@ -13,21 +14,33 @@ import {
 } from "@/components/ui/pagination";
 
 import TOKEN, { ACCESS_TOKEN } from "@/app/utils/constants";
+import { useEffect, useState } from "react";
+import { parseAsInteger, useQueryState } from "nuqs";
 
-export default async function page6() {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
 
-    {
-      headers: {
-        Authorization: `bearer ${ACCESS_TOKEN}`,
+export default function page6() {
+  const [data, setData] = useState({results:[]});
+  const [page, setPage] = useQueryState("page", { defaultValue: "1" });
+  const getMovies = async () => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
 
-        "Content-type": "application/json",
-      },
-    }
-  );
+      {
+        headers: {
+          Authorization: `bearer ${ACCESS_TOKEN}`,
 
-  const data = await response.json();
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+    setData(data)
+  };
+
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
     <div>
@@ -48,9 +61,9 @@ export default async function page6() {
                 height={750}
               /> */}
               <img
-                  src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                  alt={`Poster of ${movie?.original_title}`}
-                />
+                src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+                alt={`Poster of ${movie?.original_title}`}
+              />
               <div className="bg-[#27272a] flex p-2 flex-col items-start self-stretch h-full">
                 <div className="flex gap-[2px] items-center">
                   <svg
@@ -89,11 +102,11 @@ export default async function page6() {
           </PaginationItem>
 
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
+            <PaginationLink href="?page=1">1</PaginationLink>
           </PaginationItem>
 
           <PaginationItem>
-            <PaginationLink href="#" isActive>
+            <PaginationLink href="?page=2">
               2
             </PaginationLink>
           </PaginationItem>

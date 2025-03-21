@@ -1,12 +1,13 @@
 import Option, { BaseURL, ConImg } from "@/app/utils/constants";
-import { MoviTypes } from "@/app/utils/types";
+import { GenreType, MovieTypes } from "@/app/utils/type";
+import { Pagination } from "@/components/ui/pagination";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function page({
-    params: { inputgenrse },
+    params: { inputgenres },
 }: {
-    params: { inputgenrse: string };
+    params: { inputgenres: string };
 }) {
     const genresData = await fetch(
         `${BaseURL}/genre/movie/list?language=en`,
@@ -15,7 +16,7 @@ export default async function page({
     const datagenres = await genresData.json();
 
     const genresAllData = await fetch(
-        `${BaseURL}/discover/movie?with_genres=${inputgenrse}&language=en`,
+        `${BaseURL}/discover/movie?with_genres=${inputgenres}&language=en`,
         Option
     );
     const dataAllgenres = await genresAllData.json();
@@ -75,7 +76,7 @@ export default async function page({
                                             </div>
                                         </Link>
                                     );
-                                })}
+                                })} 
                         </div>
                         <Pagination />
                     </div>
@@ -88,7 +89,7 @@ export default async function page({
                             </p>
                         </div>
                         <div className="w-[387px] flex items-start content-start gap-4 self-stretch flex-wrap">
-                            {datagenres.genres.map((genre: MovieTypes, index: number) => {
+                            {datagenres.genres.map((genre: GenreType, index: number) => {
                                 return (
                                     <div
                                         key={index}

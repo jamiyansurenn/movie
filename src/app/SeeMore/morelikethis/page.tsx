@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import TOKEN from "@/app/utils/constants";
+import { ACCESS_TOKEN } from "@/app/utils/constants";
 import { MovieTypes } from "@/app/utils/type";
 import {
   Pagination,
@@ -20,7 +20,7 @@ export default async function page5({
     `https://api.themoviedb.org/3/movie/${morelike}/similar?language=en-US&page=1`,
     {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
 
         "Content-Type": "application/json",
       },
@@ -30,7 +30,9 @@ export default async function page5({
   const MoreThis = await MoreThisLike.json();
 
   console.log(MoreThis);
-
+  const handlePagination = (value: number) => {
+    console.log("changing ", value);
+  };
   return (
     <div className=" flex flex-col items-center justify-center mt-8 w-[1260px] h-[900px]">
       <div className="w-[1090px] h-14 mb-4">
@@ -46,13 +48,19 @@ export default async function page5({
             return (
               <Link key={index} href={`/${movie.id}`}>
                 <div className="rounded-[8px] overflow-hidden w-[225px] h-[430px] flex flex-col items-start cursor-pointer">
-                  <Image
+                  {/* <Image
                     src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                     alt={`Poster of ${movie?.original_title}`}
                     width={500}
                     height={750}
+                  /> */}
+                  <img
+                    src={
+                      "https://image.tmdb.org/t/p/original/" +
+                      movie?.poster_path
+                    }
+                    alt={"Poster of " + movie?.original_title}
                   />
-
                   <div className="bg-secondary flex p-2 flex-col items-start self-stretch h-[100px]">
                     <div className="flex items-center gap-[2px]">
                       <svg
@@ -86,24 +94,20 @@ export default async function page5({
           })}
       </div>
 
-      <Pagination className="ml-[495px] mt-5">
-        <PaginationContent>
+      <Pagination  className="ml-[495px] mt-5">
+        <PaginationContent >
           <PaginationItem>
             <PaginationPrevious href="#" />
           </PaginationItem>
 
           <PaginationItem>
-            <PaginationLink href="#" isActive>
+            <PaginationLink href="#asdfdsa" isActive>
               1
             </PaginationLink>
           </PaginationItem>
 
-          <PaginationItem>
-            <PaginationLink href="#">2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
+          <PaginationItem>2</PaginationItem>
+          <PaginationItem>3</PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
